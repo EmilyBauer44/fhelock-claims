@@ -2,6 +2,7 @@ import { Shield, Eye, Clock, DollarSign } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 interface ClaimCardProps {
   claimId: string;
@@ -18,6 +19,7 @@ const ClaimCard = ({
   submittedDate, 
   encryptedAmount = true 
 }: ClaimCardProps) => {
+  const navigate = useNavigate();
   const getStatusColor = (status: string) => {
     switch (status) {
       case "pending":
@@ -93,6 +95,7 @@ const ClaimCard = ({
           variant="outline" 
           size="sm" 
           className="w-full flex items-center space-x-2"
+          onClick={() => navigate(`/claim/${claimId}`)}
         >
           <Eye className="w-4 h-4" />
           <span>View Details</span>

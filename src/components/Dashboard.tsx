@@ -1,13 +1,16 @@
+import { useState } from "react";
 import { Lock, TrendingUp, Clock, CheckCircle, Plus, FileText } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useFHELockClaims, useSubmitClaim, useFHEEncryption } from "@/hooks/useContract";
 import ClaimCard from "./ClaimCard";
+import NewClaimForm from "./NewClaimForm";
 
 const Dashboard = () => {
   const { isConnected } = useFHELockClaims();
   const { submitEncryptedClaim, isLoading: isSubmitting } = useSubmitClaim();
   const { encryptData, isEncrypting } = useFHEEncryption();
+  const [showNewClaimForm, setShowNewClaimForm] = useState(false);
   const mockClaims = [
     {
       claimId: "CLM-2024-001",
@@ -87,6 +90,7 @@ const Dashboard = () => {
           {isConnected && (
             <Button 
               className="flex items-center space-x-2"
+              onClick={() => setShowNewClaimForm(true)}
               disabled={isSubmitting || isEncrypting}
             >
               <Plus className="w-4 h-4" />
@@ -118,6 +122,15 @@ const Dashboard = () => {
           </p>
         </CardContent>
       </Card>
+
+      {/* New Claim Form Modal */}
+      {showNewClaimForm && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+          <div className="w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+            <NewClaimForm onClose={() => setShowNewClaimForm(false)} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
