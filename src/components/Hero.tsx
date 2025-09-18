@@ -39,12 +39,6 @@ const Hero = () => {
           
           <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-12">
             <Button 
-              size="lg" 
-              className="bg-white text-primary hover:bg-white/90 font-semibold px-8 py-4 h-auto"
-            >
-              Connect Your Wallet
-            </Button>
-            <Button 
               variant="outline" 
               size="lg" 
               className="border-white/30 text-white hover:bg-white/10 font-semibold px-8 py-4 h-auto"
