@@ -1,8 +1,11 @@
 import { Shield, Lock, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 import heroImage from "@/assets/insurance-hero.jpg";
 
 const Hero = () => {
+  const navigate = useNavigate();
+
   return (
     <section className="relative overflow-hidden">
       {/* Background Image with Overlay */}
@@ -42,7 +45,7 @@ const Hero = () => {
               variant="outline" 
               size="lg" 
               className="border-white/30 text-white hover:bg-white/10 font-semibold px-8 py-4 h-auto"
-              onClick={() => window.location.href = '/dashboard'}
+              onClick={() => navigate('/dashboard')}
             >
               View Dashboard
             </Button>
