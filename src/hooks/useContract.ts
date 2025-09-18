@@ -1,4 +1,4 @@
-import { useContract, useContractRead, useContractWrite, useAccount, useWaitForTransaction } from 'wagmi';
+import { useContractRead, useContractWrite, useAccount, useWaitForTransaction } from 'wagmi';
 import { useState } from 'react';
 import contractInfo from '../contracts/contract-info.json';
 
@@ -53,16 +53,12 @@ const contractABI = [
 
 export const useFHELockClaims = () => {
   const { address } = useAccount();
-  
-  const contract = useContract({
-    address: contractInfo.address as `0x${string}`,
-    abi: contractABI,
-  });
 
   return {
-    contract,
     address,
     isConnected: !!address,
+    contractAddress: contractInfo.address as `0x${string}`,
+    contractABI,
   };
 };
 
@@ -86,7 +82,7 @@ export const useSubmitClaim = () => {
   ) => {
     setIsLoading(true);
     try {
-      const result = await writeContract.writeAsync({
+      const result = await writeContract.writeContractAsync({
         args: [
           description,
           encryptedAmount,
@@ -129,7 +125,7 @@ export const useUploadDocument = () => {
   ) => {
     setIsLoading(true);
     try {
-      const result = await writeContract.writeAsync({
+      const result = await writeContract.writeContractAsync({
         args: [BigInt(claimId), documentHash, documentType]
       });
       return result;
